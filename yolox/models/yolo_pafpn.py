@@ -7,7 +7,7 @@ import torch.nn as nn
 
 from .darknet import CSPDarknet
 from .network_blocks import BaseConv, CSPLayer, DWConv
-
+from .ASFF import ASFF
 
 class YOLOPAFPN(nn.Module):
     """
@@ -79,6 +79,10 @@ class YOLOPAFPN(nn.Module):
             depthwise=depthwise,
             act=act,
         )
+        # ############ 2、实例化ASFF
+        self.asff_1 = ASFF(level= 0, multiplier= width)
+        self.asff_2 = ASFF(level= 1, multiplier= width)
+        self.asff_3 = ASFF(level= 2, multiplier= width)
 
     def forward(self, input):
         """
@@ -113,4 +117,11 @@ class YOLOPAFPN(nn.Module):
         pan_out0 = self.C3_n4(p_out0)  # 1024->1024/32
 
         outputs = (pan_out2, pan_out1, pan_out0)
+
+        # asff
+        pan_out0 = self.asff_1(outputs)
+        pan_out1 = self.asff_2(outputs)
+        pan_out2 = self.asff_3(outputs)
+        outputs = (pan_out2,pan_out1,pan_out0)
+
         return outputs

@@ -223,3 +223,7 @@ If you use YOLOX in your research, please cite our work by using the following B
   year={2021}
 }
 ```
+
+## 改进的内容
+ASFF模块
+在PAFPN尾部添加ASFF模块（YOLOX-s等版本）
