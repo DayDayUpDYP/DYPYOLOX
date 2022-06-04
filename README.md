@@ -227,3 +227,4 @@ If you use YOLOX in your research, please cite our work by using the following B
 ## 改进的内容
 ASFF模块
 在PAFPN尾部添加ASFF模块（YOLOX-s等版本）
+加入GhostBlock在主干，加入ASFF在特征融合，150个epoch达到了94%的精度
